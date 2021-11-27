@@ -47,3 +47,48 @@
     right: 1%;
     top: 1%;
 }
+
+.game_icons {
+    position: absolute;
+    left: 1%;
+    top: 1%;
+    .game_icon {
+        margin-bottom: 0.5rem;
+        cursor: pointer;
+    }
+    .setting_icon {
+        &:hover {
+            transform: rotate(30deg);
+            transition: all 0.5s;
+        }
+    }
+}
+
+.box_setting {
+    background-color: #424242;
+    padding: 2rem 2rem;
+    border-radius: 4px;
+}
+
+.save_btn {
+    width: 100%;
+    margin-bottom: 1rem !important;
+    background-color: #8854c0 !important;
+    box-shadow: 0 4px 0 0 #6c4298 !important;
+    font-weight: 600 !important;
+    color: #fff;
+}
+
+.exit_btn {
+    width: 100%;
+    margin-bottom: 0.5rem;
+    background-color: #fff !important;
+    box-shadow: 0 4px 0 0 #dfdfdf !important;
+    font-weight: 600 !important;
+    color: #000 !important;
+}
+
+.sound_settings {
+    display: flex;
+    justify-content: space-between;
+}
