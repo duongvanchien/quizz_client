@@ -1,4 +1,4 @@
-import {Button, FormControlLabel, Grid, Switch} from "@mui/material";
+import {Button, FormControlLabel, Grid, Switch, Tooltip} from "@mui/material";
 import {Choose} from "./components/Choose";
 import "./styles.scss";
 import ReactCountdownClock from "react-countdown-clock";
@@ -14,9 +14,21 @@ export const Game = () => {
     // alert("OK");
   };
 
+  const handleFullScreen = () => {
+    const el = document.documentElement;
+    el.requestFullscreen();
+  };
+
   const renderContentSetting = () => {
     return (
       <div style={{color: "#fff", display: "flex", justifyContent: "center"}}>
+        <div className='fullscreen_btn'>
+          <Button onClick={handleFullScreen}>
+            <Tooltip title='Fullscreen'>
+              <i className='fas fa-expand' style={{color: "#fff"}}></i>
+            </Tooltip>
+          </Button>
+        </div>
         <div style={{width: "30%"}}>
           <div className='box_setting'>
             <Button variant='contained' color='primary' className='save_btn' onClick={() => setOpenSetting(false)}>
@@ -49,10 +61,14 @@ export const Game = () => {
     >
       <div className='game_icons'>
         <div className='game_icon setting_icon'>
-          <img src={SettingIcon} onClick={() => setOpenSetting(true)} />
+          <Tooltip title='Cài đặt'>
+            <img src={SettingIcon} onClick={() => setOpenSetting(true)} />
+          </Tooltip>
         </div>
         <div className='game_icon setting_icon'>
-          <img src={CupIcon} />
+          <Tooltip title='Bảng xếp hạng'>
+            <img src={CupIcon} />
+          </Tooltip>
         </div>
       </div>
       <FCCustomDialog
