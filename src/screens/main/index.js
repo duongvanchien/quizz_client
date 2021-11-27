@@ -1,12 +1,13 @@
-import {useEffect, useReducer, useRef} from "react";
-import {getAllData, uploadData} from "../../firebase/until";
-import firebase from "../../firebase/firebaseConfig";
-import TextField from "@mui/material/TextField";
 import {Button} from "@mui/material";
+import TextField from "@mui/material/TextField";
+import {useEffect, useReducer, useRef} from "react";
+import firebase from "../../firebase/firebaseConfig";
+import {uploadData} from "../../firebase/until";
 import {initState, loadUsersInRoom, mainReducer} from "./logic";
 
 export const Main = () => {
   const nameRef = useRef(null);
+  const database = firebase.database();
   const [uiState, uiLogic] = useReducer(mainReducer, initState);
 
   useEffect(() => {
@@ -14,8 +15,6 @@ export const Main = () => {
   }, []);
 
   const loadUserInRoom = async () => {
-    const database = firebase.database();
-
     await database.ref("/test/users").on("value", (dataSnapshot) => {
       uiLogic(loadUsersInRoom(Object.values(dataSnapshot.val())));
     });
