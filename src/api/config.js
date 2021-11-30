@@ -7,7 +7,7 @@ const URL = process.env.REACT_APP_ENDPOINT;
 const createAxios = () => {
   let axiosInstant = axios.create();
   axiosInstant.defaults.baseURL = URL;
-  axiosInstant.defaults.withCredentials = true;
+  // axiosInstant.defaults.withCredentials = true;
   axiosInstant.defaults.timeout = 20000;
   axiosInstant.defaults.headers = {"Content-Type": "application/json"};
   axiosInstant.defaults.headers = {"access-control-allow-origin": "*"};
