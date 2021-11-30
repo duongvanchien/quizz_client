@@ -1,14 +1,14 @@
 import {Button, FormControlLabel, Grid, Switch, Tooltip} from "@mui/material";
 import {useState} from "react";
-import ReactCountdownClock from "react-countdown-clock";
 import CupIcon from "../../../assets/trophy.png";
 import SettingIcon from "../../../assets/gear.png";
 import {FCCustomDialog} from "../../../components/FCCustomDialog";
 import {Choose} from "./Choose";
+import {CountdownCircleTimer} from "react-countdown-circle-timer";
 
 export const Question = (props) => {
   const [openSetting, setOpenSetting] = useState(false);
-  const {question, nextQuestion} = props;
+  const {question, nextQuestion, time} = props;
 
   const handleNextQuestion = () => {
     nextQuestion();
@@ -77,15 +77,23 @@ export const Question = (props) => {
         fullScreen={true}
       />
       <div className='time_clock'>
-        <ReactCountdownClock
-          seconds={15}
-          alpha={0.9}
-          color='#689f38'
-          size={50}
-          weight={10}
-          showMilliseconds={false}
-          onComplete={handleNextQuestion}
-        />
+        <CountdownCircleTimer
+          isPlaying
+          duration={time}
+          colors={[
+            ["#64dd17", 0.33],
+            ["#ffd600", 0.33],
+            ["#dd2c00", 0.33],
+          ]}
+          size={60}
+          strokeWidth={10}
+          onComplete={() => {
+            handleNextQuestion();
+            return [true, 100];
+          }}
+        >
+          {({remainingTime}) => <div style={{fontWeight: 700}}>{remainingTime}</div>}
+        </CountdownCircleTimer>
       </div>
 
       <>

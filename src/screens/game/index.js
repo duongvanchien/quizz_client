@@ -1,7 +1,7 @@
 import {useEffect, useReducer, useState} from "react";
 import {questionApi} from "../../api/api/questionApi";
 import {Question} from "./components/Question";
-import {gameReducer, initState, loadQuestions} from "./logic";
+import {gameReducer, initState, loadQuestions, setTime} from "./logic";
 import "./styles.scss";
 
 export const Game = () => {
@@ -13,13 +13,13 @@ export const Game = () => {
   }, []);
 
   const nextQuestion = () => {
-    console.log("okkkkkkkk");
+    uiLogic(setTime(15));
     setIndex(index + 1);
   };
 
   const getListQuestion = async () => {
     try {
-      const res = await questionApi.getListQuestion();
+      const res = await questionApi.getListQuestion({limit: 10});
       uiLogic(loadQuestions(res.data.questions));
     } catch (err) {
       console.log(err);
@@ -29,7 +29,7 @@ export const Game = () => {
   return (
     <>
       {uiState.questions && uiState.questions.length > index ? (
-        <Question question={uiState.questions[index]} nextQuestion={nextQuestion} />
+        <Question question={uiState.questions[index]} nextQuestion={nextQuestion} time={uiState.time} />
       ) : (
         <div>OK day</div>
       )}
