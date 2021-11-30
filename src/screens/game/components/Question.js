@@ -8,10 +8,10 @@ import {Choose} from "./Choose";
 
 export const Question = (props) => {
   const [openSetting, setOpenSetting] = useState(false);
-  const {question} = props;
+  const {question, nextQuestion} = props;
 
   const handleNextQuestion = () => {
-    // alert("OK");
+    nextQuestion();
   };
 
   const handleFullScreen = () => {
@@ -55,8 +55,7 @@ export const Question = (props) => {
     <div
       className='background_screen'
       style={{
-        backgroundImage:
-          `url("${question.url}")`,
+        backgroundImage: `url("${question?.url}")`,
       }}
     >
       <div className='game_icons'>
@@ -90,13 +89,13 @@ export const Question = (props) => {
       </div>
 
       <>
-        <div className='question'>{question.text}</div>
+        <div className='question'>{question?.text}</div>
         <div className='chooses'>
           <Grid container spacing={2}>
-            {question.answers.length &&
-              question.answers.map((item, index) => (
+            {question?.answers.length &&
+              question?.answers.map((item, index) => (
                 <Grid item lg sm={6} xs={12} key={index}>
-                  <Choose content={item.text} />
+                  <Choose content={item?.text} />
                 </Grid>
               ))}
           </Grid>
