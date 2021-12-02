@@ -1,3 +1,4 @@
+
 const ActionTypes = {
   LOAD_QUESTIONS: "LOAD_QUESTIONS",
   SET_TIME: "SET_TIME",
@@ -29,7 +30,6 @@ export const loadQuestions = (questions) => {
 };
 
 export const setTime = (time) => {
-  console.log(time, "asdnbabfddabfnsdbfsdhvfsdbfgsdf")
   return {
     type: ActionTypes.SET_TIME,
     time,

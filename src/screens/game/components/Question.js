@@ -1,18 +1,37 @@
 import {Button, FormControlLabel, Grid, Switch, Tooltip} from "@mui/material";
-import {useState} from "react";
+import {useCallback, useState} from "react";
 import CupIcon from "../../../assets/trophy.png";
 import SettingIcon from "../../../assets/gear.png";
 import {FCCustomDialog} from "../../../components/FCCustomDialog";
 import {Choose} from "./Choose";
 import {CountdownCircleTimer} from "react-countdown-circle-timer";
+import {answerApi} from "../../../api/api/answerApi";
+import _ from "lodash";
+import {ANSWER_STATUS} from "../../../contants";
 
 export const Question = (props) => {
-  const [openSetting, setOpenSetting] = useState(false);
   const {question, nextQuestion, time} = props;
+  const [openSetting, setOpenSetting] = useState(false);
+  const [statusAnswer, setStatusAnswer] = useState(ANSWER_STATUS.nomal);
 
   const handleNextQuestion = () => {
     nextQuestion();
   };
+
+  const selectChoose = useCallback(async (choose) => {
+    const answerIds = question.answers?.map((value) => value._id);
+    try {
+      const answers = await answerApi.getAnswers({answers: answerIds});
+      const yourChoose = _.find(answers.data.listAnswer, (value) => (value._id === choose));
+      if (yourChoose.is_correct === ANSWER_STATUS.correct) {
+        alert("Dung roi!");
+      } else {
+        alert("Sai");
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  }, []);
 
   const handleFullScreen = () => {
     const el = document.documentElement;
@@ -103,7 +122,7 @@ export const Question = (props) => {
             {question?.answers.length &&
               question?.answers.map((item, index) => (
                 <Grid item lg sm={6} xs={12} key={index}>
-                  <Choose content={item?.text} />
+                  <Choose answer={item} selectChoose={(choose) => selectChoose(choose)} statusAnswer={statusAnswer} />
                 </Grid>
               ))}
           </Grid>
